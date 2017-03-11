@@ -1,3 +1,5 @@
+# I think that this fork useful only for me
+
 # videojs-suggestedVideoEndcap
 Creates an endcap screen with a grid of suggested video links to watch, similar to YouTube. Inspired by Funny or Die’s [videojs-relatedCarousel](https://github.com/funnyordie/videojs-relatedCarousel).
 ____

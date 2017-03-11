@@ -1,53 +1,151 @@
+@import "http://iwwant,com/fonts/proxima_nova/proxima_nova.css";
 .vjs-suggested-video-endcap {
-  background: rgba(0, 0, 0, .7);
+  background: #2C3E50;
   display: none;
-  height: 95%;
+  height: calc(100% - 30px);
   left: 0;
   overflow: hidden;
-  padding: 20px;
   position: absolute;
   right: 0;
   top: 0;
   width: 100%;
+  z-index:100;
 }
 .vjs-suggested-video-endcap.is-active {
   display: block;
 }
 .vjs-suggested-video-endcap-container {
-  -webkit-align-content: center;
-  align-content: center;
-  -webkit-align-items: baseline;
-  align-items: baseline;
+  width: 100%;
+  overflow: hidden;
+  height: 100%;
+  box-sizing: border-box;
   display: -webkit-flex;
-  display: -ms-flex;
+  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  -webkit-justify-content: center;
-  justify-content: center;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
 }
 .vjs-suggested-video-endcap-header {
-  font: 700 16px/1 Arial, sans-serif;
-  margin: 0 auto 20px;
-  text-align: center;
+  display:none;
 }
 .vjs-suggested-video-endcap-link {
-  font: 400 18px/1 Arial, sans-serif;
-  margin-bottom: 20px;
-  margin-right: 20px;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  text-decoration: none;
+  background-color: #DDE6EA;
+  border: 2px solid #fff;
+  border-radius: 2px;
+  margin: 6px 0px 0px 6px;
+  height: calc(50% - 12px);
+  max-height: 50%;
+  padding: 5px;
+  text-align: center;
   position: relative;
-  width: 23%;
+  -webkit-flex-basis: 33.33333333%;
+  -ms-flex-preferred-size: 33.33333333%;
+  flex-basis: 33.33333333%;
+  max-width: 33.33333333%;
+  width: calc(33.33333333% - 16px);
+  box-sizing: border-box;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
 }
-.vjs-suggested-video-endcap-link:nth-of-type(4n),
-.vjs-suggested-video-endcap-link:last-of-type {
-  margin-right: 0;
+
+.vjs-suggested-video-endcap-link:before {
+  content: '';
+  background: url(http://198.199.124.81/img/round_play.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  width: 30%;
+  height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -15% 0 0-15%;
 }
-.vjs-suggested-video-endcap-img {
-  height: auto;
-  margin-bottom: 5px;
+.vjs-suggested-video-endcap-link:after {
+  content: '';
+  background: url(http://198.199.124.81/img/icon_play.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  width: 30%;
+  height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -15%;
+  margin-top: -15%;
+}
+
+.vjs-suggested-video-endcap-link:hover {
+  border-color: #006385;
+}
+
+.vjs-suggested-video-endcap-link:nth-child(1) {
+
+}
+.vjs-suggested-video-endcap-link:nth-child(2) {
+
+}
+.vjs-suggested-video-endcap-link:nth-child(3) {
+  margin-right: 6px;
+}
+.vjs-suggested-video-endcap-link:nth-child(4) {
+  height: calc(50% - 6px);
+  margin: 0px 0px 0px 6px;
+}
+.vjs-suggested-video-endcap-link:nth-child(5) {
+  height: calc(50% - 6px);
+  margin: 0px 0px 0px 6px;
+}
+.vjs-suggested-video-endcap-link:nth-child(6) {
+  height: calc(50% - 6px);
+  margin: 0px 6px 0px 6px;
+}
+
+.vjs-suggested-video-endcap-link > div {
+  color: #FFFFFF;
+  text-decoration: none;
+  font-size: 12px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
   width: 100%;
+  height: 100%;
+  padding: 5px 5px;
+  background: rgba(8, 8, 8, 0.72);
+  line-height: 15px;
+  display: none;
+  z-index: 2;
+  text-align: left;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.vjs-suggested-video-endcap-link div:after {
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  -webkit-box-shadow: inset 0px -12px 21px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: inset 0px -12px 21px 0px rgba(0,0,0,0.75);
+  box-shadow: inset 0px -26px 18px 0px rgba(0, 0, 0, 0.93);
+}
+
+.vjs-suggested-video-endcap-link:hover > div {
+  display: block;
+}
+
+
+.vjs-suggested-video-endcap-img {
+  height: calc(100% - 0px);
+  width: 100%;
+  opacity: 0;
+  display: block;
+
 }

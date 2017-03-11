@@ -5,81 +5,87 @@
  * Plugin details: https://github.com/jmccraw/videojs-suggestedVideoEndcap
  */
 
-(function(videojs) {
+(function (videojs) {
   'use strict';
-
-  videojs.plugin('suggestedVideoEndcap', function(opts) {
+  
+  videojs.plugin('suggestedVideoEndcap', function (opts, callback) {
     opts = opts || {
-        header: 'You may also like…',
-        suggestions: [
-          {
-            title: '',
-            url: '',
-            image: '',
-            alt: '',
-            target: '_self'
-          }
-        ]
-      };
+      header: 'Похожие видео',
+      suggestions: [
+        {
+          url: '',
+          image: '',
+          alt: '',
+          target: '_self'
+        }
+      ]
+    };
     var player = this;
-    var _sve;
+
+    if (!player.suggestions) {
+      player.suggestions = {
+        el: null,
+        suggestions: []
+      }
+    }
 
     /**
      * Generate the DOM elements for the suggested video endcap content
      * @type {function}
      */
     function constructSuggestedVideoEndcapContent() {
+
       var sugs = opts.suggestions;
-      var _frag = document.createDocumentFragment();
-      var _aside = document.createElement('aside');
-      var _div = document.createElement('div');
-      var _header = document.createElement('h5');
-      // can only hold eight suggestions at a time
-      var i = sugs.length - 1 > 7 ? 7 : sugs.length - 1;
-      var _a;
-      var _img;
 
-      _aside.className = 'vjs-suggested-video-endcap';
-      _div.className = 'vjs-suggested-video-endcap-container';
+      var block = document.createElement('aside');
+      block.className = 'vjs-suggested-video-endcap';
 
-      _header.innerHTML = opts.header;
-      _header.className = 'vjs-suggested-video-endcap-header';
+      var sub_block = document.createElement('div');
+      sub_block.className = 'vjs-suggested-video-endcap-container';
 
-      _aside.appendChild(_header);
+      sugs.slice(0, 6).forEach(function (suggestion) {
+        var a, img, title
+        //a tag
+        a = document.createElement('a');
+        a.className = 'vjs-suggested-video-endcap-link';
+        a.title = suggestion.title;
+        a.style.backgroundImage = "url(" + suggestion.image + ")";
+        if (callback && typeof callback === 'function') {
+          a.onclick = function(){
+            callback(suggestion)
+          }
+        } else {
+          a.target = suggestion.target || '_self';
+          a.href = suggestion.url;
+        }
+        //img tag
+        img = document.createElement('img');
+        img.className = 'vjs-suggested-video-endcap-img';
+        img.src = "http://198.199.124.81/img/notphoto.jpg";
+        img.alt = suggestion.alt || suggestion.title;
+        //title tag
+        title = document.createElement('div');
+        title.className = "vjs-suggested-title_block";
+        title.innerHTML = suggestion.title;
 
-      // construct the individual suggested content pieces
-      for (; i >= 0; --i) {
-        _a = document.createElement('a');
-        _a.className = 'vjs-suggested-video-endcap-link';
-        _a.href = sugs[i].url;
-        _a.target = sugs[i].target || '_self';
-        _a.title = sugs[i].title;
-
-        _img = document.createElement('img');
-        _img.className = 'vjs-suggested-video-endcap-img';
-        _img.src = sugs[i].image;
-        _img.alt = sugs[i].alt || sugs[i].title;
-        _a.appendChild(_img);
-
-        _a.innerHTML += sugs[i].title;
-
-        _div.appendChild(_a);
-      }
-
-      _aside.appendChild(_div);
-      _sve = _aside;
-      _frag.appendChild(_aside);
-      player.el().appendChild(_frag);
+        a.appendChild(img);
+        a.appendChild(title);
+        sub_block.appendChild(a);
+      })
+      block.appendChild(sub_block);
+      if (player.suggestions.el) player.el().removeChild(player.suggestions.el)
+      player.suggestions.el = block;
+      player.el().appendChild(block);
     }
 
     // attach VideoJS event handlers
-    player.on('ended', function() {
-      _sve.classList.add('is-active');
-    }).on('play', function() {
-      _sve.classList.remove('is-active');
+    player.on('ended', function () {
+      player.suggestions.el.classList.add('is-active');
+    }).on('play', function () {
+      player.suggestions.el.classList.remove('is-active');
     });
 
-    player.ready(function() {
+    player.ready(function () {
       constructSuggestedVideoEndcapContent();
     });
 
