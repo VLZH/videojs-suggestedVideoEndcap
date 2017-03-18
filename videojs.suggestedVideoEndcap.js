@@ -83,6 +83,10 @@
       player.suggestions.el.classList.add('is-active');
     }).on('play', function () {
       player.suggestions.el.classList.remove('is-active');
+    }).on('showsuggestions', function () {
+        player.suggestions.el.classList.add('is-active');
+    }).on('hidesuggestions', function () {
+        player.suggestions.el.classList.remove('is-active');
     });
 
     player.ready(function () {
